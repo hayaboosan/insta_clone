@@ -1,1 +1,1 @@
-Dir[File.expand_path('./db/seeds' << '/*.rb')].each { |file| require file }
+Dir[File.expand_path('./db/seeds' << '/*.rb')].reverse.each { |file| require file }

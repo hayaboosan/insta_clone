@@ -3,6 +3,7 @@ class CommentsController < ApplicationController
 
   def create
     @comment = current_user.comments.build(comment_params)
+    @comment.post_id = params[:post_id]
     @comment.save
   end
 
@@ -12,7 +13,7 @@ class CommentsController < ApplicationController
 
   def update
     @comment = current_user.comments.find(params[:id])
-    @comment.update(comment_update_params)
+    @comment.update(comment_params)
   end
 
   def destroy
@@ -23,10 +24,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:body).merge(post_id: params[:post_id])
-  end
-
-  def comment_update_params
     params.require(:comment).permit(:body)
   end
 end

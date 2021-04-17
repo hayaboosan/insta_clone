@@ -13,6 +13,10 @@ Rails.application.routes.draw do
   resources :likes, only: %i[create destroy]
   resources :relationships, only: %i[create destroy]
 
+  namespace :mypage do
+    resource :account, only: %i[edit update]
+  end
+
   constraints ->(request) { request.session[:user_id].present? } do
     root 'posts#index'
   end

@@ -9,6 +9,9 @@ Rails.application.config.assets.version = '1.0'
 Rails.application.config.assets.paths << Rails.root.join('node_modules')
 
 # Precompile additional assets.
+# 追加のアセットをプリコンパイルします。
 # application.js, application.css, and all non-JS/CSS in the app/assets
+# application.js, application.css, およびapp/assetsにあるJS/CSS以外のすべての
 # folder are already added.
-# Rails.application.config.assets.precompile += %w( admin.js admin.css )
+# フォルダの中のJS/CSS以外のものはすでに追加されています。
+Rails.application.config.assets.precompile += %w[mypages.js mypages.css]

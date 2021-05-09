@@ -1,9 +1,8 @@
--if @activities.present?
+- if @activities.present?
   - @activities.each do |activity|
-    = render activity.action_type.to_s, activity: activity
-  -if @activities.count > 3
-    .mt-3
-      = paginate @activities
+    = render "#{activity.action_type}", activity: activity
+  = paginate @activities
+
 - else
   .text-center
     | お知らせはありません

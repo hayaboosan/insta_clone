@@ -3,7 +3,7 @@ class ActivitiesController < ApplicationController
 
   def read
     activity = current_user.activities.find(params[:id])
-    activitiy.read! if activity.unread?
+    activity.read! if activity.unread?
     redirect_to activity.redirect_path
   end
 end

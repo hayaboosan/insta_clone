@@ -11,12 +11,14 @@
   .image-info-box
     .profile-box.p-3
       .d-flex.align-items-center
-        = image_tag @post.user.avatar.url,
-                    size: '40x40', class: 'rounded-circle mr-1'
+        = image_tag @post.user.avatar.url, size: '40x40', class: 'rounded-circle mr-1'
         = @post.user.username
         - if current_user&.own?(@post)
-          = link_to edit_post_path(@post), class: 'ml-auto' do
-            = icon 'far', 'edit', class: 'fa-lg'
+          .ml-auto
+            = link_to post_path(@post), class: 'mr-3', method: :delete, data: { confirm: '本当に削除しますか？' } do
+              = icon 'far', 'trash-alt', class: 'fa-lg'
+            = link_to edit_post_path(@post) do
+              = icon 'far', 'edit', class: 'fa-lg'
         - if current_user && !current_user.own?(@post)
           .ml-auto
             = render 'like_area', post: @post
@@ -25,8 +27,7 @@
       / 投稿の本文
       .row.no-gutters
         .col-2
-          = image_tag @post.user.avatar.url,
-                      size: '40x40', class: 'rounded-circle'
+          = image_tag @post.user.avatar.url, size: '40x40', class: 'rounded-circle'
         .col-10
           = simple_format(@post.body)
       hr
@@ -34,4 +35,4 @@
       = render 'comments/comments', comments: @comments
     hr.m-0
     .post-comment.p-3
-      =render 'comments/form', post: @post, comment: @comment
+      = render 'comments/form', post: @post, comment: @comment

@@ -1,17 +1,16 @@
 class PostsController < ApplicationController
   before_action :require_login, only: %i[new create edit update destroy]
-
   def index
     @posts = if current_user
-               current_user.feed.includes(:user).page(params[:page])
+               current_user.feed.includes(:user).page(params[:page]).order(created_at: :desc)
              else
-               Post.all.includes(:user).page(params[:page])
+               Post.all.includes(:user).page(params[:page]).order(created_at: :desc)
              end
     @users = User.recent(5)
   end
 
   def new
-    @posts = Post.new
+    @post = Post.new
   end
 
   def create
@@ -19,7 +18,7 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path, success: '投稿しました'
     else
-      flash.now[:denger] = '投稿に失敗しました'
+      flash.now[:danger] = '投稿に失敗しました'
       render :new
     end
   end
@@ -33,7 +32,7 @@ class PostsController < ApplicationController
     if @post.update(post_params)
       redirect_to posts_path, success: '投稿を更新しました'
     else
-      flash.now[:denger] = '投稿の更新に失敗しました'
+      flash.now[:danger] = '投稿の更新に失敗しました'
       render :edit
     end
   end

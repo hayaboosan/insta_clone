@@ -1,9 +1,6 @@
 nav.navbar.navbar-expand-lg.navbar-light.bg-white
   = link_to 'InstaClone', root_path, class: 'navbar-brand'
-  button.navbar-toggler [aria-controls="navbarTogglerDemo02"
-                        aria-expanded="false" aria-label="Toggle navigation"
-                        data-target="#navbarTogglerDemo02"
-                        data-toggle="collapse" type="button"]
+  button.navbar-toggler aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarTogglerDemo02" data-toggle="collapse" type="button"
     span.navbar-toggler-icon
   #navbarTogglerDemo02.collapse.navbar-collapse
     = render 'posts/search_form', search_form: @search_form
@@ -18,6 +15,7 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-white
             = render 'shared/unread_badge'
           #header-activities.dropdown-menu.dropdown-menu-right.m-0.p-0 aria-labelledby="dropdownMenuButton"
             = render 'shared/header_activities'
+
       li.nav-item
         = link_to user_path(current_user), class: 'nav-link' do
           = icon 'far', 'user', class: 'fa-lg'

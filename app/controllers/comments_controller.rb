@@ -4,7 +4,10 @@ class CommentsController < ApplicationController
   def create
     @comment = current_user.comments.build(comment_params)
     @comment.post_id = params[:post_id]
-    UserMailer.with(user_from: current_user, user_to: @comment.post.user, comment: @comment).comment_post.deliver_later if @comment.save && @comment.post.user.notification_on_comment?
+    if @comment.save && @comment.post.user.notification_on_comment?
+      UserMailer.with(user_from: current_user, user_to: @comment.post.user,
+                      comment: @comment).comment_post.deliver_later
+    end
   end
 
   def edit

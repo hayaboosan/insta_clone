@@ -15,6 +15,9 @@
             = @user.username
           .text-center
             = render 'follow_area', user: @user
+          - if current_user&.id != @user.id
+            .text-center
+              = render 'message_button', user: @user
           hr
           .row
             = render partial: 'posts/thumbnail_post', collection: @user.posts

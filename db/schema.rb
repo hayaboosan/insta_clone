@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_11_212754) do
+ActiveRecord::Schema.define(version: 2021_06_12_001449) do
 
   create_table "activities", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "subject_type"
@@ -59,6 +59,16 @@ ActiveRecord::Schema.define(version: 2021_06_11_212754) do
     t.index ["user_id"], name: "index_likes_on_user_id"
   end
 
+  create_table "messages", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "chatroom_id"
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
+  end
+
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "images", null: false
     t.text "body", null: false
@@ -100,5 +110,7 @@ ActiveRecord::Schema.define(version: 2021_06_11_212754) do
   add_foreign_key "join_chatrooms", "users"
   add_foreign_key "likes", "posts"
   add_foreign_key "likes", "users"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "users"
   add_foreign_key "posts", "users"
 end

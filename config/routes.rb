@@ -22,7 +22,8 @@ Rails.application.routes.draw do
     patch :read, on: :member
   end
 
-  resources :chatrooms, only: %i[create show], shallow: true do
+  resources :direct_messages
+  resources :chatrooms, only: %i[index create show], shallow: true do
     resources :messages
   end
 

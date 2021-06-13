@@ -39,8 +39,8 @@ class User < ApplicationRecord
   has_many :following, through: :active_relationships, source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   has_many :activities, dependent: :destroy
-  has_many :join_chatrooms, dependent: :destroy
-  has_many :chatrooms, through: :join_chatrooms
+  has_many :chatroom_users, dependent: :destroy
+  has_many :chatrooms, through: :chatroom_users
   has_many :messages, dependent: :destroy
 
   scope :recent, ->(count) { order(created_at: :desc).limit(count) }

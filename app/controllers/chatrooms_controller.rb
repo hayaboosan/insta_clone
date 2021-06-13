@@ -2,7 +2,7 @@ class ChatroomsController < ApplicationController
   before_action :require_login, only: %i[index show]
 
   def index
-    @chatrooms = current_user.chatrooms.page(params[:page]).order(created_at: :desc)
+    @chatrooms = current_user.chatrooms.includes(:users, :messages).page(params[:page]).order(created_at: :desc)
   end
 
   def create

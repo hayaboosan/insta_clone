@@ -2,7 +2,7 @@ class CreateChatrooms < ActiveRecord::Migration[5.2]
   def change
     create_table :chatrooms do |t|
       t.string :name, null: false
-      
+      t.boolean :direct_message, null: false, default: false
       t.timestamps
     end
   end

@@ -8,7 +8,7 @@ li.media.mb-3.border-bottom.p-2 id="message-#{message.id}"
   .media-body
     = simple_format(message.body)
     .text-right
-      = message.decorate.create_at
+      = message.decorate.created_at
     .text-right
       - if current_user&.own?(message)
         = link_to message_path(message), class: 'mr-3 delete-button',

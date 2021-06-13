@@ -1,5 +1,5 @@
 class ChatroomsController < ApplicationController
-  before_action :require_login, only: %i[index show]
+  before_action :require_login, only: %i[index show create]
   before_action :require_user_ids, only: %i[create]
 
   def index

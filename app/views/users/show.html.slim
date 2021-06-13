@@ -15,7 +15,7 @@
             = @user.username
           .text-center
             = render 'follow_area', user: @user
-          - if current_user&.id != @user.id
+          - if current_user && current_user&.id != @user.id
             .text-center
               = render 'message_button', user: @user
           hr

@@ -8,13 +8,13 @@ RSpec.describe 'チャット', type: :system do
     it 'ユーザーの詳細ページに存在すること' do
       login_as login_user
       visit user_path(user)
-      expect(page).to have_content('メッセージ')
+      expect(page).to have_selector(:link_or_button, 'メッセージ')
     end
     
     it 'クリックすると当該ユーザーとのチャットルームに遷移すること' do
       login_as login_user
       visit user_path(user)
-      click_link 'メッセージ'
+      click_button 'メッセージ'
       expect(current_path).to eq chatroom_path(Chatroom.first)
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe 'チャット', type: :system do
       it 'エラーメッセージが表示されること' do
         login_as login_user
         visit user_path(user)
-        click_link 'メッセージ'
+        click_button 'メッセージ'
         click_button '投稿'
         sleep 0.5
         expect(page.driver.browser.switch_to.alert.text).to eq 'メッセージを入力してください'
@@ -35,7 +35,7 @@ RSpec.describe 'チャット', type: :system do
       it 'メッセージが投稿されること' do
         login_as login_user
         visit user_path(user)
-        click_link 'メッセージ'
+        click_button 'メッセージ'
         fill_in 'メッセージ', with: 'hello world'
         click_button '投稿'
         expect(page).to have_content 'hello world'
@@ -44,11 +44,13 @@ RSpec.describe 'チャット', type: :system do
   end
 
   describe 'メッセージの編集ボタンをクリックした場合' do
-    it 'モーダルが表示され、コメントの編集ができること' do
+    it 'モーダルが表示され、コメントの編集ができること', js: true do
       login_as login_user
       visit user_path(user)
-      click_link 'メッセージ'
+      click_button 'メッセージ'
       fill_in 'メッセージ', with: 'hello world'
+      click_button '投稿'
+      expect(page).to have_content 'hello world'
       find(".edit-button").click
       within '#modal-container' do
         fill_in 'メッセージ', with: 'updated hello world'
@@ -62,7 +64,7 @@ RSpec.describe 'チャット', type: :system do
     it '確認ダイアログが出て、｢OK｣するとメッセージが削除されること' do
       login_as login_user
       visit user_path(user)
-      click_link 'メッセージ'
+      click_button 'メッセージ'
       fill_in 'メッセージ', with: 'hello world'
       click_button '投稿'
       expect(page).to have_content 'hello world'

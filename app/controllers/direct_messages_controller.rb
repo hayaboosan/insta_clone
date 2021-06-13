@@ -6,6 +6,6 @@ class DirectMessagesController < ApplicationController
     @chatroom = Chatroom.chatroom_for_users(users, direct_message: true)
     @messages = @chatroom.messages.order(created_at: :desc).limit(100).reverse
     @chatroom_user = current_user.chatroom_users.find_by(chatroom_id: @chatroom.id)
-    render 'chatroom/show'
+    redirect_to chatroom_path(@chatroom)
   end
 end

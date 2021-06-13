@@ -1,2 +1,3 @@
-= link_to 'メッセージ',
-    direct_message_path(user), class: 'btn btn-warning btn-raised'
+= form_with url: chatrooms_path, local: true do |f|
+  = f.hidden_field 'chatroom[user_ids][]', value: user.id
+  = f.submit 'メッセージ', class: 'btn btn-warning btn-raised'

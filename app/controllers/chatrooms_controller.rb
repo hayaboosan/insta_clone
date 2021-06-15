@@ -15,7 +15,8 @@ class ChatroomsController < ApplicationController
   end
 
   def show
-    @chatroom = current_user.chatrooms.includes(:users).find(params[:id])
+    @chatroom = current_user.chatrooms.find_by(id: params[:id])
+    redirect_to chatrooms_path unless @chatroom
   end
 
   private

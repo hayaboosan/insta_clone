@@ -2,12 +2,6 @@ class MessagesController < ApplicationController
   before_action :require_login, only: %i[create]
   def create
     @message = current_user.messages.create(message_params)
-    # if @message.save
-    #   redirect_to chatroom_path(@message.chatroom)
-    # else
-    #   @chatroom = @message.chatroom
-    #   render 'chatrooms/show'
-    # end
   end
 
   def edit

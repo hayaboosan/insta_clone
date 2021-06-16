@@ -1,0 +1,5 @@
+- if @message.errors.present?
+  | alert("#{@message.errors.full_messages.join('\n')}");
+- else
+  | $("#message-#{@message.id}").replaceWith("#{j render('messages/message', message: @message)}");
+  | $("#message-edit-modal").modal('hide');

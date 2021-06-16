@@ -1,0 +1,19 @@
+li.media.mb-3.border-bottom.p-2 id="message-#{message.id}"
+  div
+    div
+      = link_to message.user.username, user_path(message.user)
+    = image_tag message.user.avatar_url,
+        class: 'mr-3 rounded-circle', size: '50x50'
+
+  .media-body
+    = simple_format(message.body)
+    .text-right
+      = message.decorate.created_at
+    .text-right
+      - if current_user&.own?(message)
+        = link_to message_path(message), class: 'mr-3 delete-button',
+            method: :delete, data: { confirm: '本当に削除しますか？' }, remote: true do
+          = icon 'far', 'trash-alt', class: 'fa-sm'
+        = link_to edit_message_path(message),
+            class: 'edit-button', remote: true do
+          = icon 'far', 'edit', class: 'fa-sm'
